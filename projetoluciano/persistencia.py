@@ -11,7 +11,7 @@ cur = con.cursor()
 #TABELA DO USUARIO
 cur.execute('''
   CREATE TABLE IF NOT EXISTS usuario(
-            id TEXT PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTO_INCREMENT,
             nome TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
             senha TEXT NOT NULL UNIQUE,
@@ -25,7 +25,7 @@ cur.execute('''
 cur.execute('''
   CREATE TABLE IF NOT EXISTS empresa(
             nome TEXT UNIQUE,
-            id TEXT,
+            id INTEGER AUTO_INCREMENT,
             lucro FLOAT,
             senha TEXT NOT NULL UNIQUE,
             devs TEXT,
@@ -40,8 +40,8 @@ cur.execute('''
 cur.execute('''
   CREATE TABLE IF NOT EXISTS dev(
             nome TEXT NOT NULL,
-            id TEXT,
-            id_empre TEXT,
+            id INTEGER AUTO_INCREMENT,
+            id_empre INTEGER,
             senha TEXT UNIQUE,
             email TEXT UNIQUE,
             jogos TEXT,
@@ -56,7 +56,7 @@ cur.execute('''
 cur.execute('''
   CREATE TABLE IF NOT EXISTS jogo(
             nome TEXT UNIQUE,
-            id TEXT,
+            id INTEGER AUTO_INCREMENT,
             id_empre TEXT,
             id_dev TEXT,
             preco FLOAT NOT NULL,
@@ -74,7 +74,7 @@ cur.execute('''
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS biblioteca(
-            id TEXT,
+            id INTEGER AUTO_INCREMENT,
             id_jogo TEXT,
             id_user TEXT,
             PRIMARY KEY(id,id_jogo,id_user)
@@ -87,7 +87,7 @@ cur.execute('''
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS carrinho(
-            id TEXT,
+            id INTEGER AUTO_INCREMENT,
             id_user TEXT,
             id_jogo TEXT,
             preco FLOAT NOT NULL,
@@ -101,7 +101,7 @@ cur.execute('''
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS operacoes(
-            id TEXT, 
+            id INTEGER AUTO_INCREMENT, 
             id_user TEXT,
             id_empre TEXT,
             preco FLOAT NOT NULL,
