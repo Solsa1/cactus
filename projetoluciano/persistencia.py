@@ -11,7 +11,7 @@ cur = con.cursor()
 #TABELA DO USUARIO
 cur.execute('''
   CREATE TABLE IF NOT EXISTS usuario(
-            id INTEGER PRIMARY KEY AUTO_INCREMENT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
             senha TEXT NOT NULL UNIQUE,
@@ -20,33 +20,33 @@ cur.execute('''
             carrinho TEXT NOT NULL,
             foto TEXT NOT NULL      )
 ''')
+
 #TABELA DA EMPRESA
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS empresa(
             nome TEXT UNIQUE,
-            id INTEGER AUTO_INCREMENT,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             lucro FLOAT,
             senha TEXT NOT NULL UNIQUE,
             devs TEXT,
             jogo TEXT,
             logo TEXT,
-            desc TEXT NOT NULL,
-            PRIMARY KEY(id)
-  )
+            desc TEXT NOT NULL
+            )
 ''')
 #TABELA DO DEV
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS dev(
             nome TEXT NOT NULL,
-            id INTEGER AUTO_INCREMENT,
+            id INTEGER AUTOINCREMENT,
             id_empre INTEGER,
+            PRIMARY KEY(id, id_empre),
             senha TEXT UNIQUE,
             email TEXT UNIQUE,
             jogos TEXT,
             lucro FLOAT,
-            PRIMARY KEY(id, id_empre),
             FOREIGN KEY(id_empre) REFERENCES empresa(id)   
   )
 ''')
@@ -56,9 +56,9 @@ cur.execute('''
 cur.execute('''
   CREATE TABLE IF NOT EXISTS jogo(
             nome TEXT UNIQUE,
-            id INTEGER AUTO_INCREMENT,
-            id_empre TEXT,
-            id_dev TEXT,
+            id INTEGER AUTOINCREMENT,
+            id_empre INTEGER,
+            id_dev INTEGER,
             preco FLOAT NOT NULL,
             desc TEXT NOT NULL,
             foto TEXT NOT NULL,
@@ -74,9 +74,9 @@ cur.execute('''
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS biblioteca(
-            id INTEGER AUTO_INCREMENT,
-            id_jogo TEXT,
-            id_user TEXT,
+            id INTEGER AUTOINCREMENT,
+            id_jogo INTEGER,
+            id_user INTEGER,
             PRIMARY KEY(id,id_jogo,id_user)
             FOREIGN KEY(id_jogo) REFERENCES jogo(id),
             FOREIGN KEY(id_user) REFERENCES usuario(id)
@@ -87,9 +87,9 @@ cur.execute('''
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS carrinho(
-            id INTEGER AUTO_INCREMENT,
-            id_user TEXT,
-            id_jogo TEXT,
+            id INTEGER AUTOINCREMENT,
+            id_user INTEGER,
+            id_jogo INTEGER,
             preco FLOAT NOT NULL,
             PRIMARY KEY(id,id_user,id_jogo),
             FOREIGN KEY(id_jogo) REFERENCES jogo(id),
@@ -101,9 +101,9 @@ cur.execute('''
 
 cur.execute('''
   CREATE TABLE IF NOT EXISTS operacoes(
-            id INTEGER AUTO_INCREMENT, 
-            id_user TEXT,
-            id_empre TEXT,
+            id INTEGER AUTOINCREMENT, 
+            id_user INTEGER,
+            id_empre INTEGER,
             preco FLOAT NOT NULL,
             tipo TEXT NOT NULL,
             PRIMARY KEY(id, id_user, id_empre),
